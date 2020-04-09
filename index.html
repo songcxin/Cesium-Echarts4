@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Use correct character set. -->
+		<meta charset="utf-8">
+		<!-- Tell IE to use the latest, best version. -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>CesiumEchartsLayer</title>
+		<script type="text/javascript" src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="Cesium/Cesium.js"></script>
+		<script src="https://cdn.bootcss.com/echarts/4.7.0/echarts.js"></script>
+		<script src="lib/cesium_data.js"></script>
+		<script src="lib/cesium_echartslayer.js"></script>
+
+		<style>
+			@import url(Cesium/Widgets/widgets.css);
+
+			html,
+			body,
+			#cesiumContainer {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+			}
+		</style>
+
+	</head>
+	<body>
+		<div id="cesiumContainer"></div>
+		<script>
+			viewer = new Cesium.Viewer('cesiumContainer', {
+				geocoder: false,
+				homeButton: false,
+				baseLayerPicker: false,
+				navigationHelpButton: false,
+				animation: false,
+				sceneModePicker: false,
+				selectionIndicator: false,
+				infoBox: false,
+				scene3DOnly: false,
+				timeline: false,
+				CreditsDisplay: false,
+				imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+					url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
+					enablePickFeatures: false
+				})
+			});
+			viewer.scene.globe.baseColor = new Cesium.Color(1, 1, 1, 0);
+			viewer.scene.globe.depthTestAgainstTerrain = true;
+			viewer._cesiumWidget._creditContainer.style.display = "none";
+
+			//let uoption = getOption(_basedata);
+			let _echartLayer = new EchartsLayer(viewer, option);
+		</script>
+	</body>
+</html>
